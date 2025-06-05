@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yamagomori Workshop - Transportation, Mobility & Car Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #F3F4F6;
+        }
+        .hero-bg-iframe {
+            background-color: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        .iframe-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        .content-section h2 {
+            font-size: 2.25rem; 
+            font-weight: 700; 
+            margin-bottom: 1.5rem; 
+            background: linear-gradient(to right, #38BDF8, #A78BFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .content-section p, .content-section li {
+            font-size: 1rem; 
+            line-height: 1.75; 
+            color: #D1D5DB; 
+        }
+        .content-section ul {
+            list-style-position: inside;
+            padding-left: 0; 
+        }
+        .content-section li::before {
+            content: "\2022"; 
+            color: #38BDF8; 
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em; 
+        }
+        .btn {
+            padding: 0.75rem 1.5rem; 
+            border-radius: 0.5rem; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block; 
+        }
+        .btn-primary {
+            background-color: #38BDF8;
+            color: #111827; 
+        }
+        .btn-primary:hover {
+            background-color: #0EA5E9;
+        }
+        .lang-switcher button.active {
+            font-weight: bold;
+            color: #38BDF8; 
+            text-decoration: underline;
+        }
+        .form-input {
+            background-color: #1F2937; 
+            border: 1px solid #374151; 
+            color: #F3F4F6; 
+            padding: 0.75rem; 
+            border-radius: 0.375rem; 
+            width: 100%;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #38BDF8; 
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4);
+        }
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #1F2937; margin: 15% auto; padding: 20px;
+            border: 1px solid #374151; width: 80%; max-width: 500px;
+            border-radius: 0.5rem; text-align: center; color: #F3F4F6;
+        }
+        .modal-close {
+            color: #9CA3AF; float: right; font-size: 28px; font-weight: bold;
+        }
+        .modal-close:hover, .modal-close:focus {
+            color: #F3F4F6; text-decoration: none; cursor: pointer;
+        }
+        .yamagomori-logo {
+            font-size: 1.75rem; 
+            font-weight: 700; 
+        }
+        .yamagomori-logo .academy-word {
+            color: #38BDF8; 
+        }
+        #learningEcosystemCanvasIt, #learningEcosystemCanvasEn { /* Apply to both canvas elements */
+            cursor: pointer;
+            background-color: #1a1a2e; /* Slightly different dark for canvas bg */
+            border-radius: 0.5rem;
+            border: 1px solid #374151;
+            width: 100%; /* Ensure canvas takes full width of its container */
+            height: 100%; /* Ensure canvas takes full height of its container */
+        }
+        .learning-ecosystem-title { /* Style for the "Learning Ecosystem" title */
+            font-size: 2rem; /* text-3xl */
+            font-weight: 700; /* bold */
+            text-align: center;
+            margin-bottom: 0.5rem; /* Reduced margin-bottom */
+            /* Using a similar gradient but distinct */
+            background: linear-gradient(to right, #7dd3fc, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-6 px-4 sm:px-6 lg:px-8 sticky top-0 z-50 bg-gray-900/80 backdrop-blur-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="yamagomori-logo">
+                <span class="text-white">Yamagomori</span> <span class="academy-word">Academy</span>
+            </div>
+            <nav class="lang-switcher space-x-4 text-sm">
+                <button id="lang-it" class="active text-gray-300 hover:text-blue-400 transition">IT</button>
+                <span>|</span>
+                <button id="lang-en" class="text-gray-300 hover:text-blue-400 transition">EN</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Italian Content -->
+    <div id="content-it">
+        <div class="hero-bg-iframe min-h-screen flex items-center justify-center text-center">
+            <iframe class="iframe-bg" src="https://morfonauta.github.io/Y-logo-html/" title="Yamagomori Y Logo Animation"></iframe>
+            <div class="hero-content p-8">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    PLASMA IL FUTURO <span class="block text-blue-400">DELLA MOBILITÀ.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                    YAMAGOMORI ACADEMY: Workshop innovativi in Transportation, Mobility e Car Design.
+                </p>
+                <a href="#form-it" class="btn btn-primary text-lg">Pre-iscriviti ora</a>
+            </div>
+        </div>
+
+        <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8 space-y-16 content-section">
+            <section class="mb-12">
+                <h2 class="text-center">Temi principali</h2>
+                <ul class="space-y-2 mt-6">
+                    <li>Transportation Design: innovazione estetica e funzionale.</li>
+                    <li>Mobility Systems: integrazione di tecnologie sostenibili.</li>
+                    <li>Car Design: visione futuristica e approccio multidisciplinare.</li>
+                </ul>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-center">Metodo Yamagomori</h2>
+                <p class="mt-6">Adaptive learning, sistemi ecologici e partecipazione attiva: ogni studente plasma un percorso formativo unico, guidato da esperienze pratiche e riflessioni progettuali.</p>
+            </section>
+
+            <!-- Learning Ecosystem Animation Section -->
+            <section id="learning-ecosystem-section-it">
+                <h3 class="learning-ecosystem-title">Learning Ecosystem</h3>
+                <p class="text-center text-sm text-gray-400 mb-4">Clicca sull'animazione per vedere le particelle formare la "Y".</p>
+                <div class="w-full max-w-2xl mx-auto aspect-video">
+                    <canvas id="learningEcosystemCanvasIt"></canvas>
+                </div>
+                <p class="text-center text-gray-400 text-sm mt-6">
+                    Esplora l'animazione originale interattiva:
+                    <a href="https://morfonauta.github.io/Y-logo-html/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline ml-1">Yamagomori Y-Logo</a>
+                </p>
+            </section>
+
+            <section id="form-it" class="bg-gray-800 p-8 md:p-12 rounded-lg shadow-2xl">
+                <h2 class="text-center">Pre-iscrizione</h2>
+                <form id="preRegistrationFormIt" class="max-w-lg mx-auto space-y-6 mt-8">
+                    <div>
+                        <label for="nameIt" class="block text-sm font-medium mb-1 text-gray-400">Nome</label>
+                        <input type="text" id="nameIt" name="name" placeholder="Il tuo nome" required class="form-input">
+                    </div>
+                    <div>
+                        <label for="emailIt" class="block text-sm font-medium mb-1 text-gray-400">Email</label>
+                        <input type="email" id="emailIt" name="email" placeholder="latua@email.com" required class="form-input">
+                    </div>
+                    <div class="flex items-start">
+                        <input id="consentIt" name="consent" type="checkbox" required class="h-4 w-4 text-blue-500 border-gray-600 rounded focus:ring-blue-400 mt-1 mr-2">
+                        <label for="consentIt" class="text-sm text-gray-400">Acconsento al trattamento dei miei dati personali secondo la <a href="#" class="text-blue-400 hover:underline">privacy policy</a>.</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full text-lg">Invia Pre-iscrizione</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- English Content (hidden by default) -->
+    <div id="content-en" style="display: none;">
+        <div class="hero-bg-iframe min-h-screen flex items-center justify-center text-center">
+            <iframe class="iframe-bg" src="https://morfonauta.github.io/Y-logo-html/" title="Yamagomori Y Logo Animation"></iframe>
+            <div class="hero-content p-8">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    SHAPE THE FUTURE <span class="block text-blue-400">OF MOBILITY.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                    YAMAGOMORI ACADEMY: Innovative workshops in Transportation, Mobility, and Car Design.
+                </p>
+                <a href="#form-en" class="btn btn-primary text-lg">Pre-register now</a>
+            </div>
+        </div>
+
+        <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8 space-y-16 content-section">
+            <section class="mb-12">
+                <h2 class="text-center">Main Themes</h2>
+                <ul class="space-y-2 mt-6">
+                    <li>Transportation Design: aesthetic and functional innovation.</li>
+                    <li>Mobility Systems: integration of sustainable technologies.</li>
+                    <li>Car Design: futuristic vision and multidisciplinary approach.</li>
+                </ul>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-center">Yamagomori Method</h2>
+                <p class="mt-6">Adaptive learning, ecological systems, and active participation: each student shapes a unique educational path, guided by practical experiences and design reflections.</p>
+            </section>
+
+            <!-- Learning Ecosystem Animation Section -->
+            <section id="learning-ecosystem-section-en">
+                <h3 class="learning-ecosystem-title">Learning Ecosystem</h3>
+                <p class="text-center text-sm text-gray-400 mb-4">Click the animation to see the particles form the "Y".</p>
+                 <div class="w-full max-w-2xl mx-auto aspect-video">
+                    <canvas id="learningEcosystemCanvasEn"></canvas>
+                </div>
+                <p class="text-center text-gray-400 text-sm mt-6">
+                    Explore the original interactive animation:
+                    <a href="https://morfonauta.github.io/Y-logo-html/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline ml-1">Yamagomori Y-Logo</a>
+                </p>
+            </section>
+
+            <section id="form-en" class="bg-gray-800 p-8 md:p-12 rounded-lg shadow-2xl">
+                <h2 class="text-center">Pre-registration</h2>
+                <form id="preRegistrationFormEn" class="max-w-lg mx-auto space-y-6 mt-8">
+                    <div>
+                        <label for="nameEn" class="block text-sm font-medium mb-1 text-gray-400">Name</label>
+                        <input type="text" id="nameEn" name="name" placeholder="Your name" required class="form-input">
+                    </div>
+                    <div>
+                        <label for="emailEn" class="block text-sm font-medium mb-1 text-gray-400">Email</label>
+                        <input type="email" id="emailEn" name="email" placeholder="your@email.com" required class="form-input">
+                    </div>
+                    <div class="flex items-start">
+                        <input id="consentEn" name="consent" type="checkbox" required class="h-4 w-4 text-blue-500 border-gray-600 rounded focus:ring-blue-400 mt-1 mr-2">
+                        <label for="consentEn" class="text-sm text-gray-400">I consent to the processing of my personal data according to the <a href="#" class="text-blue-400 hover:underline">privacy policy</a>.</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full text-lg">Submit Pre-registration</button>
+                </form>
+            </section>
+        </div>
+    </div>
+    
+    <footer class="py-12 bg-gray-900 border-t border-gray-700">
+        <div class="container mx-auto text-center text-gray-500 text-sm">
+            <p>&copy; <span id="currentYear"></span> Yamagomori Academy. <span id="footerTextIt">Tutti i diritti riservati.</span><span id="footerTextEn" style="display:none;">All rights reserved.</span></p>
+            <p><span id="footerSubTextIt">Un progetto per plasmare il futuro.</span><span id="footerSubTextEn" style="display:none;">A project to shape the future.</span></p>
+        </div>
+    </footer>
+
+    <div id="messageModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close" id="modalCloseBtn">&times;</span>
+        <p id="modalMessageText"></p>
+      </div>
+    </div>
+
+    <script>
+        const langItBtn = document.getElementById('lang-it');
+        const langEnBtn = document.getElementById('lang-en');
+        const contentIt = document.getElementById('content-it');
+        const contentEn = document.getElementById('content-en');
+        const footerTextIt = document.getElementById('footerTextIt');
+        const footerTextEn = document.getElementById('footerTextEn');
+        const footerSubTextIt = document.getElementById('footerSubTextIt');
+        const footerSubTextEn = document.getElementById('footerSubTextEn');
+        // const linkOriginalIt = document.getElementById('linkOriginalIt'); // No longer needed as separate elements
+        // const linkOriginalEn = document.getElementById('linkOriginalEn'); // No longer needed as separate elements
+
+        let currentLang = 'it'; // Default language
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            if (lang === 'it') {
+                contentIt.style.display = 'block';
+                contentEn.style.display = 'none';
+                langItBtn.classList.add('active');
+                langEnBtn.classList.remove('active');
+                document.documentElement.lang = 'it';
+                if(footerTextIt) footerTextIt.style.display = 'inline';
+                if(footerTextEn) footerTextEn.style.display = 'none';
+                if(footerSubTextIt) footerSubTextIt.style.display = 'inline';
+                if(footerSubTextEn) footerSubTextEn.style.display = 'none';
+                // Link text is now part of content-it/en, so no specific JS show/hide needed for it
+                if (learningAnimationIt) learningAnimationIt.init(true); 
+            } else {
+                contentIt.style.display = 'none';
+                contentEn.style.display = 'block';
+                langEnBtn.classList.add('active');
+                langItBtn.classList.remove('active');
+                document.documentElement.lang = 'en';
+                if(footerTextIt) footerTextIt.style.display = 'none';
+                if(footerTextEn) footerTextEn.style.display = 'inline';
+                if(footerSubTextIt) footerSubTextIt.style.display = 'none';
+                if(footerSubTextEn) footerSubTextEn.style.display = 'inline';
+                // Link text is now part of content-it/en
+                if (learningAnimationEn) learningAnimationEn.init(true); 
+            }
+        }
+
+        langItBtn.addEventListener('click', () => setLanguage('it'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const messageModal = document.getElementById('messageModal');
+        const modalMessageText = document.getElementById('modalMessageText');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+        function showModal(message) {
+            modalMessageText.textContent = message;
+            messageModal.style.display = 'block';
+        }
+        modalCloseBtn.onclick = function() { messageModal.style.display = 'none'; }
+        window.onclick = function(event) { if (event.target == messageModal) { messageModal.style.display = 'none'; } }
+
+        function handleFormSubmit(event, lang) {
+            event.preventDefault();
+            const form = event.target;
+            if (!form.consent.checked) {
+                showModal(lang === 'it' ? "Devi accettare la privacy policy." : "You must accept the privacy policy.");
+                return;
+            }
+            console.log(`Form submitted (${lang}): Name: ${form.name.value}, Email: ${form.email.value}`);
+            form.reset();
+            showModal(lang === 'it' ? "Grazie! La tua pre-iscrizione è stata registrata." : "Thank you! Your pre-registration has been recorded.");
+        }
+
+        document.getElementById('preRegistrationFormIt').addEventListener('submit', (e) => handleFormSubmit(e, 'it'));
+        document.getElementById('preRegistrationFormEn').addEventListener('submit', (e) => handleFormSubmit(e, 'en'));
+        
+        class LearningEcosystemAnimation {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas) {
+                    console.error(`Canvas with ID ${canvasId} not found.`);
+                    return;
+                }
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.particleColor = 'rgb(244, 0, 161)';
+                this.numParticles = 150; 
+                this.isFormingY = false;
+                this.animationFrameId = null;
+
+                this.yTargets = [
+                    // Stem - thicker and slightly shorter
+                    { x: 0.48, y: 0.80 }, { x: 0.52, y: 0.80 },
+                    { x: 0.48, y: 0.70 }, { x: 0.52, y: 0.70 },
+                    { x: 0.48, y: 0.60 }, { x: 0.52, y: 0.60 },
+                    { x: 0.48, y: 0.50 }, { x: 0.52, y: 0.50 }, 
+
+                    // Left Arm - angling up and slightly out
+                    { x: 0.45, y: 0.45 }, { x: 0.42, y: 0.40 }, 
+                    { x: 0.39, y: 0.35 }, { x: 0.36, y: 0.30 },
+                    { x: 0.33, y: 0.25 }, { x: 0.30, y: 0.20 },
+
+                    // Right Arm - angling up and slightly out
+                    { x: 0.55, y: 0.45 }, { x: 0.58, y: 0.40 },
+                    { x: 0.61, y: 0.35 }, { x: 0.64, y: 0.30 },
+                    { x: 0.67, y: 0.25 }, { x: 0.70, y: 0.20 },
+                ];
+                this.particleToTargetMap = [];
+            }
+
+            init(forceRestart = false) {
+                if (!this.canvas) return;
+                if (this.canvas.offsetWidth === 0 || this.canvas.offsetHeight === 0) {
+                    return;
+                }
+
+                if (this.animationFrameId && !forceRestart) return; 
+
+                cancelAnimationFrame(this.animationFrameId); 
+
+                this.canvas.width = this.canvas.offsetWidth;
+                this.canvas.height = this.canvas.offsetHeight;
+                
+                this.isFormingY = false; 
+                this.createParticles();
+                this.assignParticlesToYTargets();
+
+                if (!this.canvas.hasAttribute('data-click-listener')) {
+                    this.canvas.onclick = () => {
+                        this.isFormingY = !this.isFormingY; 
+                        if (!this.isFormingY) { 
+                            this.particles.forEach(p => {
+                                p.targetX = p.initialX + (Math.random() - 0.5) * 50;
+                                p.targetY = p.initialY + (Math.random() - 0.5) * 50;
+                            });
+                        }
+                    };
+                    this.canvas.setAttribute('data-click-listener', 'true');
+                }
+                this.animate();
+            }
+            
+            assignParticlesToYTargets() {
+                this.particleToTargetMap = [];
+                const numTargets = this.yTargets.length;
+                if (numTargets === 0) return;
+
+                for (let i = 0; i < this.particles.length; i++) {
+                    const targetNode = this.yTargets[i % numTargets];
+                    this.particleToTargetMap.push({
+                        targetX: targetNode.x * this.canvas.width + (Math.random() - 0.5) * (this.canvas.width * 0.05), 
+                        targetY: targetNode.y * this.canvas.height + (Math.random() - 0.5) * (this.canvas.height * 0.05)
+                    });
+                }
+            }
+
+            createParticles() {
+                this.particles = [];
+                for (let i = 0; i < this.numParticles; i++) {
+                    const x = Math.random() * this.canvas.width;
+                    const y = Math.random() * this.canvas.height;
+                    this.particles.push({
+                        x: x, y: y,
+                        initialX: x, initialY: y, 
+                        targetX: x, targetY: y,   
+                        vx: 0, vy: 0,
+                        radius: Math.random() * 2 + 1.5, 
+                        color: this.particleColor
+                    });
+                }
+            }
+
+            animate() {
+                if (!this.canvas || this.canvas.offsetWidth === 0) { 
+                    cancelAnimationFrame(this.animationFrameId);
+                    return;
+                }
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.particles.forEach((p, i) => {
+                    if (this.isFormingY && this.particleToTargetMap[i]) {
+                        p.targetX = this.particleToTargetMap[i].targetX;
+                        p.targetY = this.particleToTargetMap[i].targetY;
+                    } else if (!this.isFormingY) {
+                         p.targetX = p.initialX + (Math.sin(Date.now() * 0.0005 + i * 0.1) * 25); 
+                         p.targetY = p.initialY + (Math.cos(Date.now() * 0.0004 + i * 0.1) * 25);
+                    }
+
+                    p.vx = (p.targetX - p.x) * 0.035; 
+                    p.vy = (p.targetY - p.y) * 0.035;
+
+                    const speedLimit = 3.5; 
+                    const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+                    if (speed > speedLimit) {
+                        p.vx = (p.vx / speed) * speedLimit;
+                        p.vy = (p.vy / speed) * speedLimit;
+                    }
+                    
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fill();
+                });
+
+                this.animationFrameId = requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        let learningAnimationIt = null;
+        let learningAnimationEn = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            learningAnimationIt = new LearningEcosystemAnimation('learningEcosystemCanvasIt');
+            learningAnimationEn = new LearningEcosystemAnimation('learningEcosystemCanvasEn');
+            
+            setLanguage('it'); 
+            
+            window.addEventListener('resize', () => {
+                if (currentLang === 'it' && learningAnimationIt) {
+                    learningAnimationIt.init(true);
+                } else if (currentLang === 'en' && learningAnimationEn) {
+                    learningAnimationEn.init(true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
